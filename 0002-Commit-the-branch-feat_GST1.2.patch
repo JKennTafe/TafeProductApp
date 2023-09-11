@@ -1,0 +1,70 @@
+From 4ef40377666764c7afc9836ef3ca9a74cba06570 Mon Sep 17 00:00:00 2001
+From: Joshua Kennedy <joshua.kennedy2@student.tafesa.edu.au>
+Date: Mon, 11 Sep 2023 13:11:43 +0930
+Subject: [PATCH 2/2] Commit the branch feat_GST1.2
+
+---
+ ProductMaintenance/ProductApps/MainWindow.xaml    | 10 ++++++----
+ ProductMaintenance/ProductApps/MainWindow.xaml.cs | 14 ++++++++++----
+ 2 files changed, 16 insertions(+), 8 deletions(-)
+
+diff --git a/ProductMaintenance/ProductApps/MainWindow.xaml b/ProductMaintenance/ProductApps/MainWindow.xaml
+index d08c48e..dce4784 100644
+--- a/ProductMaintenance/ProductApps/MainWindow.xaml
++++ b/ProductMaintenance/ProductApps/MainWindow.xaml
+@@ -14,10 +14,12 @@
+         <Button Name="calculateButton" Content="_Calculate" HorizontalAlignment="Left" Height="37" Margin="327,152,0,0" VerticalAlignment="Top" Width="122" Click="calculateButton_Click"/>
+         <Button Name="clearButton" Content="C_lear" HorizontalAlignment="Left" Height="34" Margin="327,209,0,0" VerticalAlignment="Top" Width="122" Click="clearButton_Click"/>
+         <Button Name="closeButton" Content="Cl_ose" HorizontalAlignment="Left" Height="34" Margin="327,264,0,0" VerticalAlignment="Top" Width="122" Click="closeButton_Click"/>
+-        <TextBlock HorizontalAlignment="Left" Height="auto" Margin="26,209,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="auto"><Run Text="T"/><Run Text="otal Charge after adding"/><LineBreak/><Run Text="the delivery charge"/><Run Language="en-au" Text=" ($25)"/><LineBreak/><Run/></TextBlock>
+-        <TextBlock x:Name="totalChargeTextBlock" HorizontalAlignment="Left" Margin="202,202,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="48" Width="82"/>
+-        <TextBlock HorizontalAlignment="Left" Height="auto" Margin="26,274,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="auto"><Run Text="T"/><Run Text="otal Charge after "/><Run Language="en-au" Text="a"/><Run Text="dding"/><LineBreak/><Run Text="the "/><Run Language="en-au" Text="wrap charge ($5)"/><LineBreak/><Run/></TextBlock>
+-        <TextBlock x:Name="totalChargeWrapTextBlock" HorizontalAlignment="Left" Margin="202,261,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="48" Width="82"/>
++        <TextBlock HorizontalAlignment="Left" Height="auto" Margin="26,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="auto"><Run Text="T"/><Run Text="otal Charge after adding"/><LineBreak/><Run Text="the delivery charge"/><Run Language="en-au" Text=" ($25)"/><LineBreak/><Run/></TextBlock>
++        <TextBlock x:Name="totalChargeTextBlock" HorizontalAlignment="Left" Margin="202,178,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="48" Width="82"/>
++        <TextBlock HorizontalAlignment="Left" Height="auto" Margin="26,236,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="auto"><Run Text="T"/><Run Text="otal Charge after "/><Run Language="en-au" Text="a"/><Run Text="dding"/><LineBreak/><Run Text="the "/><Run Language="en-au" Text="wrap charge ($5)"/><LineBreak/><Run/></TextBlock>
++        <TextBlock x:Name="totalChargeWrapTextBlock" HorizontalAlignment="Left" Margin="202,230,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="48" Width="82"/>
++        <TextBlock HorizontalAlignment="Left" Height="auto" Margin="26,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="auto"><Run Text="T"/><Run Text="otal Charge after "/><Run Language="en-au" Text="GST @10%"/></TextBlock>
++        <TextBlock x:Name="totalChargeGSTTextBlock" HorizontalAlignment="Left" Margin="202,281,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="auto" Width="82"/>
+ 
+ 
+     </Grid>
+diff --git a/ProductMaintenance/ProductApps/MainWindow.xaml.cs b/ProductMaintenance/ProductApps/MainWindow.xaml.cs
+index 5a6f14f..c116e4a 100644
+--- a/ProductMaintenance/ProductApps/MainWindow.xaml.cs
++++ b/ProductMaintenance/ProductApps/MainWindow.xaml.cs
+@@ -39,14 +39,18 @@ namespace ProductApps
+             {
+                 MessageBox.Show("Enter data again", "Data Entry Error");
+             }
+-            int totalCost;
+-            int product = int.Parse(priceTextBox.Text);
+-            int quantity = int.Parse(quantityTextBox.Text);
++            decimal totalCost;
++            decimal product = decimal.Parse(priceTextBox.Text);
++            decimal quantity = decimal.Parse(quantityTextBox.Text);
+             
+             totalCost = (product * quantity) + 25;
+-            int totalCostWrap = totalCost + 5;
++            decimal totalCostWrap = totalCost + 5;
++            decimal totalcostGST = totalCostWrap * 1.1m;
+             totalChargeTextBlock.Text = totalCost.ToString("C");
+             totalChargeWrapTextBlock.Text = totalCostWrap.ToString("C");
++            totalChargeGSTTextBlock.Text = totalcostGST.ToString("C");
++
++
+         }
+ 
+         private void clearButton_Click(object sender, RoutedEventArgs e)
+@@ -56,6 +60,8 @@ namespace ProductApps
+             quantityTextBox.Text = "";
+             totalPaymentTextBlock.Text = "";
+             totalChargeTextBlock.Text = "";
++            totalChargeWrapTextBlock.Text = "";
++            totalChargeGSTTextBlock.Text = "";
+         }
+ 
+         private void closeButton_Click(object sender, RoutedEventArgs e)
+-- 
+2.41.0.windows.3
+
