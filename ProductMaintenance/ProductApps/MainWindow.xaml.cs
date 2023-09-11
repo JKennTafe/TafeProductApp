@@ -44,8 +44,9 @@ namespace ProductApps
             int quantity = int.Parse(quantityTextBox.Text);
             
             totalCost = (product * quantity) + 25;
-            
+            int totalCostWrap = totalCost + 5;
             totalChargeTextBlock.Text = totalCost.ToString("C");
+            totalChargeWrapTextBlock.Text = totalCostWrap.ToString("C");
         }
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
