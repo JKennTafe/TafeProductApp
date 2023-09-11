@@ -39,14 +39,18 @@ namespace ProductApps
             {
                 MessageBox.Show("Enter data again", "Data Entry Error");
             }
-            int totalCost;
-            int product = int.Parse(priceTextBox.Text);
-            int quantity = int.Parse(quantityTextBox.Text);
+            decimal totalCost;
+            decimal product = decimal.Parse(priceTextBox.Text);
+            decimal quantity = decimal.Parse(quantityTextBox.Text);
             
             totalCost = (product * quantity) + 25;
-            int totalCostWrap = totalCost + 5;
+            decimal totalCostWrap = totalCost + 5;
+            decimal totalcostGST = totalCostWrap * 1.1m;
             totalChargeTextBlock.Text = totalCost.ToString("C");
             totalChargeWrapTextBlock.Text = totalCostWrap.ToString("C");
+            totalChargeGSTTextBlock.Text = totalcostGST.ToString("C");
+
+
         }
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
@@ -56,6 +60,8 @@ namespace ProductApps
             quantityTextBox.Text = "";
             totalPaymentTextBlock.Text = "";
             totalChargeTextBlock.Text = "";
+            totalChargeWrapTextBlock.Text = "";
+            totalChargeGSTTextBlock.Text = "";
         }
 
         private void closeButton_Click(object sender, RoutedEventArgs e)
